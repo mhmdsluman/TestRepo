@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Molecular Biology Basics: The Structure of DNA</title>
+
+    <!-- Social Media Preview Tags (Open Graph & Twitter Card) -->
+    <meta name="description" content="A detailed yet simple explanation of DNA structure, from nucleic acids to the double helix. Perfect for students and enthusiasts in molecular biology.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://your-website.com/dna-structure-post"> <!-- Replace with the actual URL -->
+    <meta property="og:title" content="The Blueprint of Life: Understanding DNA Structure">
+    <meta property="og:description" content="A detailed yet simple explanation of DNA structure, from nucleic acids to the double helix.">
+    <!-- SOCIAL MEDIA PREVIEW IMAGE: Replace 'prev1.jpg' with the full, absolute URL to your image (e.g., https://your-website.com/images/prev1.jpg) -->
+    <meta property="og:image" content="prev1.jpg"> 
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-website.com/dna-structure-post"> <!-- Replace with the actual URL -->
+    <meta property="twitter:title" content="The Blueprint of Life: Understanding DNA Structure">
+    <meta property="twitter:description" content="A detailed yet simple explanation of DNA structure, from nucleic acids to the double helix.">
+    <meta property="twitter:image" content="prev1.jpg"> <!-- The name of your preview image -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8fafc; /* slate-50 */
+            --bg-secondary: #f1f5f9; /* slate-100 */
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.8);
+            --text-primary: #1e293b; /* slate-800 */
+            --text-secondary: #475569; /* slate-600 */
+            --text-heading: #0f172a; /* slate-900 */
+            --accent-primary: #0d9488; /* teal-600 */
+            --accent-secondary: #14b8a6; /* teal-500 */
+            --border-color: #e2e8f0; /* slate-200 */
+            --shadow-color: rgba(0, 0, 0, 0.05);
+        }
+
+        html.dark {
+            --bg-primary: #0f172a; /* slate-900 */
+            --bg-secondary: #1e293b; /* slate-800 */
+            --bg-card: #1e293b; /* slate-800 */
+            --bg-header: rgba(15, 23, 42, 0.8);
+            --text-primary: #e2e8f0; /* slate-200 */
+            --text-secondary: #94a3b8; /* slate-400 */
+            --text-heading: #f1f5f9; /* slate-100 */
+            --accent-primary: #2dd4bf; /* teal-400 */
+            --accent-secondary: #5eead4; /* teal-300 */
+            --border-color: #334155; /* slate-700 */
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            padding-top: 80px; 
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Updated Card Effect (no movement on hover) --- */
+        .content-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
+            transition: box-shadow 0.4s ease;
+        }
+        .content-card:hover {
+            box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color);
+        }
+
+        /* --- Interactive Term Styling --- */
+        .interactive-term {
+            color: var(--accent-primary);
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px dotted var(--accent-secondary);
+            transition: background-color 0.3s;
+        }
+        .interactive-term:hover {
+            background-color: var(--accent-primary-translucent, rgba(13, 148, 136, 0.1));
+        }
+        html.dark .interactive-term:hover {
+             background-color: var(--accent-primary-translucent, rgba(45, 212, 191, 0.1));
+        }
+
+        /* --- Professional 3D DNA Animation --- */
+        @keyframes dna-rotate {
+            from { transform: rotateY(0deg) rotateX(5deg); }
+            to { transform: rotateY(360deg) rotateX(5deg); }
+        }
+        .dna-model {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            perspective: 800px;
+        }
+        .strand-container {
+            position: relative;
+            width: 120px;
+            height: 350px;
+            transform-style: preserve-3d;
+            animation: dna-rotate 15s linear infinite;
+        }
+        .strand {
+            width: 12px;
+            height: 100%;
+            border-radius: 6px;
+            position: absolute;
+            top: 0;
+            left: calc(50% - 6px);
+        }
+        .strand.left {
+            background-image: linear-gradient(to bottom, #38bdf8, #0c4a6e);
+            transform: rotateY(0deg) translateZ(50px);
+        }
+        .strand.right {
+            background-image: linear-gradient(to bottom, #a78bfa, #4c1d95);
+            transform: rotateY(180deg) translateZ(50px);
+        }
+        .nucleobase {
+            position: absolute;
+            left: 10px;
+            width: 100px;
+            height: 24px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            transform-style: preserve-3d;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .a-t { background-color: #f59e0b; }
+        .g-c { background-color: #ef4444; }
+        
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header - now fixed with theme switcher -->
+    <header class="bg-header backdrop-blur-sm shadow-md fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-colors duration-300">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-text-heading">MedLab Genomics Daily</h1>
+                <p class="text-lg text-text-secondary">Your daily dose of molecular biology and genetics.</p>
+            </div>
+            <button id="theme-toggle" class="p-2 rounded-full text-text-secondary hover:bg-bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-primary">
+                <svg id="theme-toggle-dark-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg id="theme-toggle-light-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <article>
+            <div class="mb-8 text-center fade-in-up">
+                <h2 class="text-4xl font-extrabold text-text-heading mb-2">The Blueprint of Life: Understanding DNA Structure</h2>
+                <p class="text-text-secondary text-sm">Posted on: July 29, 2024</p>
+                <p class="text-text-secondary text-sm mt-1">By: Mohammad Sulieman</p>
+            </div>
+
+            <section id="nucleic-acids" class="mb-12 fade-in-up" style="animation-delay: 0.2s;">
+                <div class="p-8 rounded-xl content-card">
+                    <h3 class="text-2xl font-bold mb-4 text-accent-primary">Let's Start with the Basics: What are Nucleic Acids?</h3>
+                    <p class="text-lg leading-relaxed text-text-primary">
+                        Imagine your body is a massive, incredibly complex library. To build and run this library, you need two types of instruction manuals. These manuals are called <span class="interactive-term" data-term="Nucleic Acids">nucleic acids</span>. They are the master blueprints and the working copies that carry all the information needed for a cell to function, grow, and reproduce.
+                    </p>
+                </div>
+            </section>
+
+            <section id="dna-structure" class="mb-12 fade-in-up" style="animation-delay: 0.4s;">
+                <div class="p-8 rounded-xl content-card">
+                    <h3 class="text-2xl font-bold mb-4 text-accent-primary">Diving Deeper: What is DNA?</h3>
+                    <p class="text-lg leading-relaxed mb-6 text-text-primary">
+                        DNA, or Deoxyribonucleic Acid, is the molecule that holds the genetic instructions for all living things. Think of it as a recipe book for making you, you! From the color of your eyes to how your body fights off germs, DNA has the code for it all.
+                    </p>
+
+                    <h4 class="text-xl font-bold mb-4 text-text-heading">The Famous <span class="interactive-term" data-term="Double Helix">Double Helix</span>: DNA's Structure</h4>
+                    
+                    <div class="my-8 bg-bg-secondary p-6 rounded-lg border border-border-color">
+                         <h5 class="text-lg font-bold text-center mb-4 text-text-heading">Model of the DNA Double Helix</h5>
+                        <div class="dna-model">
+                            <div class="strand-container">
+                                <div class="strand left"></div>
+                                <div class="strand right"></div>
+                                <div class="nucleobase a-t" style="top: 15%; transform: rotateY(0deg) translateZ(0px);"><span>A-T</span></div>
+                                <div class="nucleobase g-c" style="top: 30%; transform: rotateY(72deg) translateZ(0px);"><span>G-C</span></div>
+                                <div class="nucleobase a-t" style="top: 45%; transform: rotateY(144deg) translateZ(0px);"><span>T-A</span></div>
+                                <div class="nucleobase g-c" style="top: 60%; transform: rotateY(216deg) translateZ(0px);"><span>C-G</span></div>
+                                <div class="nucleobase a-t" style="top: 75%; transform: rotateY(288deg) translateZ(0px);"><span>A-T</span></div>
+                            </div>
+                        </div>
+                        <p class="text-center text-sm text-text-secondary mt-2">The two strands twist in a continuous helix, connected by pairs of nucleobases.</p>
+                    </div>
+
+                    <h4 class="text-xl font-bold mb-4 mt-8 text-text-heading">The Components of the DNA Ladder</h4>
+                    <p class="text-lg leading-relaxed mb-4 text-text-primary">
+                        Our DNA ladder is made of three key parts, which form a unit called a <strong class="font-semibold"><span class="interactive-term" data-term="Nucleotide">nucleotide</span></strong>. These are the Phosphate Group, the Deoxyribose Sugar, and a Nucleobase.
+                    </p>
+
+                    <h4 class="text-xl font-bold mb-4 mt-8 text-text-heading">The Two Families of Bases</h4>
+                    <p class="text-lg leading-relaxed mb-4 text-text-primary">The four nucleobases are grouped into two chemical families:</p>
+                    
+                    <div class="mt-6 grid md:grid-cols-2 gap-6">
+                        <div class="bg-bg-secondary p-6 rounded-xl border border-border-color">
+                            <h5 class="text-xl font-bold mb-2 text-text-heading">Purines (The "Big" Ones)</h5>
+                            <p class="mb-4 text-text-secondary">These bases have a two-ring chemical structure, making them larger.</p>
+                            <div class="flex items-center space-x-4">
+                                <span class="bg-indigo-500 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-md text-lg">A</span>
+                                <span class="font-semibold text-lg text-text-primary">Adenine</span>
+                            </div>
+                            <div class="flex items-center space-x-4 mt-3">
+                                <span class="bg-purple-500 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-md text-lg">G</span>
+                                <span class="font-semibold text-lg text-text-primary">Guanine</span>
+                            </div>
+                        </div>
+                        <div class="bg-bg-secondary p-6 rounded-xl border border-border-color">
+                            <h5 class="text-xl font-bold mb-2 text-text-heading">Pyrimidines (The "Small" Ones)</h5>
+                            <p class="mb-4 text-text-secondary">These bases have a smaller, single-ring chemical structure.</p>
+                            <div class="flex items-center space-x-4">
+                                <span class="bg-sky-500 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-md text-lg">C</span>
+                                <span class="font-semibold text-lg text-text-primary">Cytosine</span>
+                            </div>
+                            <div class="flex items-center space-x-4 mt-3">
+                                <span class="bg-rose-500 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-md text-lg">T</span>
+                                <span class="font-semibold text-lg text-text-primary">Thymine</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="text-xl font-bold mb-4 mt-8 text-text-heading">The Four Letters of the Genetic Alphabet</h4>
+                    <p class="text-lg leading-relaxed mb-4 text-text-primary">
+                        The sequence of these bases forms the genetic code. The pairing rule is that a purine always pairs with a pyrimidine:
+                    </p>
+                    <ul class="list-none space-y-4 mt-6">
+                        <li class="flex items-start"><span class="bg-indigo-500 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">A</span><span><strong class="font-semibold text-text-primary">Adenine (A):</strong> A purine that always pairs with Thymine.</span></li>
+                        <li class="flex items-start"><span class="bg-rose-500 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">T</span><span><strong class="font-semibold text-text-primary">Thymine (T):</strong> A pyrimidine that always pairs with Adenine.</span></li>
+                        <li class="flex items-start"><span class="bg-purple-500 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">G</span><span><strong class="font-semibold text-text-primary">Guanine (G):</strong> A purine that always pairs with Cytosine.</span></li>
+                        <li class="flex items-start"><span class="bg-sky-500 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center mr-4 flex-shrink-0">C</span><span><strong class="font-semibold text-text-primary">Cytosine (C):</strong> A pyrimidine that always pairs with Guanine.</span></li>
+                    </ul>
+
+                     <p class="text-lg leading-relaxed mt-8 text-text-primary">
+                        This strict A-T and G-C pairing is crucial. It keeps the "width" of the DNA ladder uniform and ensures that when DNA is copied, the new copy is an exact replica of the original.
+                    </p>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="bg-bg-secondary border-t border-border-color mt-12 py-6">
+        <div class="container mx-auto px-6 text-center text-text-secondary">
+            <p>&copy; 2024 MedLab Genomics. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="definition-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden">
+        <div id="modal-content" class="bg-white dark:bg-slate-700 rounded-lg shadow-2xl p-8 max-w-md w-full transform transition-all duration-300 scale-95 opacity-0">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-2xl font-bold text-text-heading"></h3>
+                <button id="modal-close-btn" class="text-text-secondary hover:text-text-primary text-3xl">&times;</button>
+            </div>
+            <p id="modal-definition" class="text-text-primary"></p>
+        </div>
+    </div>
+
+    <script>
+        // --- Definitions Dictionary ---
+        const definitions = {
+            "Nucleic Acids": "Large biomolecules, essential for all known forms of life. They include DNA and RNA and are made from monomers known as nucleotides.",
+            "DNA": "A molecule composed of two polynucleotide chains that coil around each other to form a double helix carrying genetic instructions for the development, functioning, growth, and reproduction of all known organisms and many viruses.",
+            "RNA": "A nucleic acid present in all living cells. Its principal role is to act as a messenger carrying instructions from DNA for controlling the synthesis of proteins.",
+            "Nucleus": "A membrane-bound organelle found in eukaryotic cells that contains the cell's genetic material.",
+            "Cytoplasm": "The material within a living cell, excluding the nucleus. It comprises the cytosol and the organelles suspended within it.",
+            "Double Helix": "The structure formed by double-stranded molecules of nucleic acids such as DNA. It is a key feature that allows DNA to store and transmit genetic information.",
+            "Nucleotide": "The basic building block of nucleic acids (like DNA and RNA). A nucleotide consists of a sugar molecule attached to a phosphate group and a nitrogen-containing base."
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Theme Switcher Logic ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // Check for saved theme in localStorage or system preference
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                darkIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                lightIcon.classList.remove('hidden');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                // toggle theme
+                document.documentElement.classList.toggle('dark');
+
+                // save preference to localStorage
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                } else {
+                    localStorage.theme = 'light';
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                }
+            });
+            
+            // --- Modal Logic ---
+            const modal = document.getElementById('definition-modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDefinition = document.getElementById('modal-definition');
+            const closeModalBtn = document.getElementById('modal-close-btn');
+
+            const openModal = (term) => {
+                modalTitle.textContent = term;
+                modalDefinition.textContent = definitions[term] || "No definition found.";
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            };
+
+            const closeModal = () => {
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            };
+
+            document.querySelectorAll('.interactive-term').forEach(el => el.addEventListener('click', (e) => openModal(e.target.dataset.term)));
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        });
+    </script>
+
+</body>
+</html>
